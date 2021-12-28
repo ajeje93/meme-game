@@ -1,0 +1,44 @@
+{
+  "name": "turborepo-basic-shared",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "start": "turbo run start --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          "build/**"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false
+      },
+      "start": {
+        "cache": false
+      }
+    }
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  }
+}

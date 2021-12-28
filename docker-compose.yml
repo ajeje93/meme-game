@@ -1,0 +1,15 @@
+services:
+  web:
+    build:
+      context: ./apps/client
+      args:
+        - REACT_APP_SERVER_URL=http://localhost:3001
+        - CI=true
+    ports:
+      - 3000:80
+  server:
+    build: ./apps/server
+    ports:
+      - 3001:3001
+    env_file:
+      - .env.server.local
