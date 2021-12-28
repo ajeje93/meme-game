@@ -1,5 +1,11 @@
 # Meme Game
 
+[![Docker Hub Client](https://img.shields.io/docker/v/ajeje93/meme-game-client?label=Docker%20Hub%20Client&sort=date)](https://hub.docker.com/r/ajeje93/meme-game-client)
+
+[![Docker Hub Server](https://img.shields.io/docker/v/ajeje93/meme-game-server?label=Docker%20Hub%20Server&sort=date)](https://hub.docker.com/r/ajeje93/meme-game-server)
+
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fajeje93%2Fmeme-game%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/ajeje93/grafana-mongodb-docker/goto?ref=main)
+
 The goal of  the game is to caption a gif to create a meme and then vote the best one.
 
 ## Build
