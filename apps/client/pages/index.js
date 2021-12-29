@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
   ClientsTable,
   NewCaptionForm,
@@ -8,12 +8,12 @@ import {
   NewRoomForm,
 } from "../components";
 import { useApi } from "../utils/apiHelper";
-import "./Home.css";
+import "../styles/Home.module.css";
 
 const Home = () => {
   // Hooks
-  const [searchParams, setSearchParams] = useSearchParams();
-  const roomId = searchParams.get("room");
+  const router = useRouter();
+  const { room: roomId } = router.query;
   const {
     createNewRoom,
     createNewClient,
@@ -61,7 +61,12 @@ const Home = () => {
   const onClickNewRoom = (e) => {
     e.preventDefault();
     createNewRoom()
-      .then((data) => setSearchParams({ room: data.id }))
+      .then((data) =>
+        router.push({
+          pathname: "/",
+          query: { room: data.id },
+        })
+      )
       .catch(console.error);
   };
 
@@ -116,4 +121,4 @@ const Home = () => {
   );
 };
 
-export { Home };
+export default Home;

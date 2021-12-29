@@ -1,4 +1,4 @@
-const CaptionsTable = ({currentCaptions, onClickVote}) => {
+const CaptionsTable = ({ currentCaptions, onClickVote }) => {
   return (
     <table>
       <thead>

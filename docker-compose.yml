@@ -2,11 +2,10 @@ services:
   web:
     build:
       context: ./apps/client
-      args:
-        - REACT_APP_SERVER_URL=http://localhost:3001
-        - CI=1
+    environment:
+      - NEXT_PUBLIC_SERVER_URL=http://localhost:3001
     ports:
-      - 3000:80
+      - 3000:3000
   server:
     build: ./apps/server
     ports:

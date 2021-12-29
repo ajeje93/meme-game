@@ -55,6 +55,12 @@ app.get("/events", async (req, res) => {
     rooms[req.query.roomId].clients = rooms[req.query.roomId].clients.filter(
       (client) => client.id !== req.query.clientId
     );
+
+    if (rooms[req.query.roomId].clients.length === 0) {
+      rooms = Object.fromEntries(
+        Object.entries(rooms).filter(([key, value]) => key !== req.query.roomId)
+      );
+    }
   });
 });
 

@@ -12,8 +12,12 @@ const useApi = () => {
       fetch(`${SERVER_URL}/room`, {
         method: "POST",
       })
-        .then((response) => response.json())
-        .then(resolve)
+        .then((response) =>
+          response.json().then((data) => {
+            if (response.status === 200) resolve(data);
+            else reject(data);
+          })
+        )
         .catch(reject);
     });
 
@@ -27,8 +31,12 @@ const useApi = () => {
           roomId,
         }),
       })
-        .then((response) => response.json())
-        .then(resolve)
+        .then((response) =>
+          response.json().then((data) => {
+            if (response.status === 200) resolve(data);
+            else reject(data);
+          })
+        )
         .catch(reject);
     });
 
@@ -48,8 +56,12 @@ const useApi = () => {
           roomId,
         }),
       })
-        .then((response) => response.json())
-        .then(resolve)
+        .then((response) =>
+          response.json().then((data) => {
+            if (response.status === 200) resolve(data);
+            else reject(data);
+          })
+        )
         .catch(reject);
     });
 
@@ -64,8 +76,12 @@ const useApi = () => {
           roomId,
         }),
       })
-        .then((response) => response.json())
-        .then(resolve)
+        .then((response) =>
+          response.json().then((data) => {
+            if (response.status === 200) resolve(data);
+            else reject(data);
+          })
+        )
         .catch(reject);
     });
 

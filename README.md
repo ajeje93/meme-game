@@ -6,7 +6,7 @@
 
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fajeje93%2Fmeme-game%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/ajeje93/grafana-mongodb-docker/goto?ref=main)
 
-The goal of  the game is to caption a gif to create a meme and then vote the best one.
+The goal of the game is to caption a gif to create a meme and then vote the best one.
 
 ## Build
 
@@ -28,10 +28,10 @@ yarn run dev
 
 You should create a `.env.local` file for each app inside apps. The content of the file for each app is:
 
-* `client`
-  * `REACT_APP_SERVER_URL` &rarr; the url of server app (if you are on local machine is `http://localhost:3001` )
-* `server`
-  * `GIPHY_API_KEY`: a developer key of your [Giphy app](https://support.giphy.com/hc/en-us/articles/360020283431-Request-A-GIPHY-API-Key)
+- `client`
+  - `NEXT_PUBLIC_SERVER_URL` &rarr; the url of server app (if you are on local machine is `http://localhost:3001` )
+- `server`
+  - `GIPHY_API_KEY`: a developer key of your [Giphy app](https://support.giphy.com/hc/en-us/articles/360020283431-Request-A-GIPHY-API-Key)
 
 ## Docker
 

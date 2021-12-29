@@ -1,1 +1,2 @@
-apps/sse-client/build
+apps/client/build
+apps/client/.next

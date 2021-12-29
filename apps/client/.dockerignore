@@ -1,4 +1,4 @@
 .turbo
 .env.local
-build
+.next
 node_modules

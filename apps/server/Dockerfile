@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 
-RUN yarn install --frozen-lockfile --prod --silent
+RUN yarn install --production --ignore-scripts --prefer-offline
 
 COPY . .
 
