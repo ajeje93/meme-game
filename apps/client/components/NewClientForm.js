@@ -22,7 +22,7 @@ const NewClientForm = ({ name, onClickNewClient, onClientNameChange }) => {
           </InputContainer>
           <div>
             <Button variant="contained" type="submit">
-              Create
+              Enter room
             </Button>
           </div>
         </FormContainer>

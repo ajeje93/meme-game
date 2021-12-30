@@ -11,7 +11,7 @@ const ClientsTable = ({ clients }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Client ID</TableCell>
+            <TableCell>User ID</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Points</TableCell>
           </TableRow>

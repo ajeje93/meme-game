@@ -1,6 +1,9 @@
 .git
 .github
 .husky
+.turbo
+node_modules
+.env.server.local
 apps/*/.turbo
 apps/*/.env.local
 apps/*/.next

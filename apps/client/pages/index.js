@@ -40,6 +40,7 @@ const Home = () => {
     clients: [],
     currentGif: null,
     currentCaptions: [],
+    currentClientVotes: [],
   });
   const [listening, setListening] = useState(false);
   const [name, setName] = useState("");
@@ -116,21 +117,24 @@ const Home = () => {
               <GifContainer>
                 <img
                   style={{ maxHeight: 300 }}
-                  src={roomData?.currentGif}
+                  src={roomData.currentGif}
                   alt="meme gif"
                 />
               </GifContainer>
             ) : null}
             <NewCaptionForm
-              {...{ caption, onClickNewCaption, onCaptionChange }}
+              currentCaptions={roomData.currentCaptions}
+              clients={roomData.clients}
+              {...{ user, caption, onClickNewCaption, onCaptionChange }}
             />
           </GifAndCaptionContainer>
           <TablesContainer>
             <CaptionsTable
               currentCaptions={roomData.currentCaptions}
-              onClickVote={onClickVote}
+              currentClientVotes={roomData.currentClientVotes}
+              clients={roomData.clients}
+              {...{ user, onClickVote }}
             />
-
             <ClientsTable clients={roomData.clients} />
           </TablesContainer>
         </Container>

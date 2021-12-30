@@ -6,7 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-const CaptionsTable = ({ currentCaptions, onClickVote }) => {
+const CaptionsTable = ({
+  currentCaptions,
+  currentClientVotes,
+  clients,
+  user,
+  onClickVote,
+}) => {
   return (
     <TableContainer>
       <Table>
@@ -23,7 +29,15 @@ const CaptionsTable = ({ currentCaptions, onClickVote }) => {
               <TableCell>{caption.text}</TableCell>
               <TableCell>{caption.points}</TableCell>
               <TableCell>
-                <Button onClick={() => onClickVote(caption)}>Vote</Button>
+                {user &&
+                user.id !== caption.clientId && // don't show vote button for own captions
+                !currentClientVotes.find(
+                  (v) =>
+                    v.clientId === user.id && // don't show vote button if already voted
+                    clients.length === currentCaptions.length // don't show vote button if not all clients have added captions
+                ) ? (
+                  <Button onClick={() => onClickVote(caption)}>Vote</Button>
+                ) : null}
               </TableCell>
             </TableRow>
           ))}
