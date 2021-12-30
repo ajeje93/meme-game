@@ -3,15 +3,18 @@ FROM node:16-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json ./
-RUN yarn install --network-timeout 100000
+COPY ./apps/client/package.json .
+COPY yarn.lock .
+RUN YARN_CACHE_FOLDER=/app/.yarn yarn install --frozen-lockfile --network-timeout 100000
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
 WORKDIR /app
-COPY . .
+COPY ./apps/client .
+COPY yarn.lock .
 COPY --from=deps /app/node_modules ./node_modules
-RUN NEXT_PUBLIC_SERVER_URL=APP_NEXT_PUBLIC_SERVER_URL yarn build && yarn install --production --ignore-scripts --prefer-offline --network-timeout 100000
+COPY --from=deps /app/.yarn ./.yarn
+RUN NEXT_PUBLIC_SERVER_URL=APP_NEXT_PUBLIC_SERVER_URL yarn build && YARN_CACHE_FOLDER=/app/.yarn yarn install --production --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 100000
 
 
 # Production image, copy all the files and run next

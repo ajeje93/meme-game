@@ -1,0 +1,7 @@
+.git
+.github
+.husky
+apps/*/.turbo
+apps/*/.env.local
+apps/*/.next
+apps/*/node_modules

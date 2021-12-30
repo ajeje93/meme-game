@@ -1,0 +1,13 @@
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+COPY ./apps/server/package.json .
+COPY yarn.lock .
+
+RUN yarn install --frozen-lockfile --production
+
+COPY /apps/server .
+
+EXPOSE 3001
+CMD [ "yarn", "start" ]

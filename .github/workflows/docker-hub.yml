@@ -40,7 +40,8 @@ jobs:
       - name: Build and push Docker client image
         uses: docker/build-push-action@v2
         with:
-          context: ./apps/client
+          context: .
+          file: Dockerfile.client
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ajeje93/meme-game-client:latest
@@ -48,7 +49,8 @@ jobs:
       - name: Build and push Docker server image
         uses: docker/build-push-action@v2
         with:
-          context: ./apps/server
+          context: .
+          file: Dockerfile.server
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: ajeje93/meme-game-server:latest
