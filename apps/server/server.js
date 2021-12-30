@@ -7,7 +7,7 @@ const { getRoomData, createNewRoom } = require("./utils/roomsHelper");
 require("dotenv").config({ path: "./.env.local" });
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 let rooms = {};
 
 app.use(cors());
