@@ -4,14 +4,14 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json ./
-RUN yarn install
+RUN yarn install --network-timeout 100000
 
 # Rebuild the source code only when needed
 FROM node:16-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN NEXT_PUBLIC_SERVER_URL=APP_NEXT_PUBLIC_SERVER_URL yarn build && yarn install --production --ignore-scripts --prefer-offline
+RUN NEXT_PUBLIC_SERVER_URL=APP_NEXT_PUBLIC_SERVER_URL yarn build && yarn install --production --ignore-scripts --prefer-offline --network-timeout 100000
 
 
 # Production image, copy all the files and run next
