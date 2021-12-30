@@ -1,29 +1,35 @@
+import { Button } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+
 const CaptionsTable = ({ currentCaptions, onClickVote }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Caption ID</th>
-          <th>Text</th>
-          <th>Client ID</th>
-          <th>Points</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {currentCaptions.map((caption) => (
-          <tr key={caption.id}>
-            <td>{caption.id}</td>
-            <td>{caption.text}</td>
-            <td>{caption.clientId}</td>
-            <td>{caption.points}</td>
-            <td>
-              <button onClick={() => onClickVote(caption)}>Vote</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Text</TableCell>
+            <TableCell>Points</TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {currentCaptions.map((caption) => (
+            <TableRow key={caption.id}>
+              <TableCell>{caption.text}</TableCell>
+              <TableCell>{caption.points}</TableCell>
+              <TableCell>
+                <Button onClick={() => onClickVote(caption)}>Vote</Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 

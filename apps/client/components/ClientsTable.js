@@ -1,23 +1,33 @@
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+
 const ClientsTable = ({ clients }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Client ID</th>
-          <th>Name</th>
-          <th>Points</th>
-        </tr>
-      </thead>
-      <tbody>
+    <TableContainer>
+      <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Client ID</TableCell>
+          <TableCell>Name</TableCell>
+          <TableCell>Points</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {clients.map((client) => (
-          <tr key={client.id}>
-            <td>{client.id}</td>
-            <td>{client.name}</td>
-            <td>{client.points}</td>
-          </tr>
+          <TableRow key={client.id}>
+            <TableCell>{client.id}</TableCell>
+            <TableCell>{client.name}</TableCell>
+            <TableCell>{client.points}</TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
+    </TableContainer>
+    
   );
 };
 
