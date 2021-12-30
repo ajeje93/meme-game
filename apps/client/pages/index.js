@@ -54,7 +54,10 @@ const Home = () => {
     if (!listening) {
       const events = getRoomEventSource(roomId, user.id, user.name);
       events.onmessage = (event) => {
-        setRoomData(JSON.parse(event.data));
+        const eventData = JSON.parse(event.data);
+        if (eventData.type === "roomData") {
+          setRoomData(JSON.parse(event.data));
+        }
       };
 
       setListening(true);

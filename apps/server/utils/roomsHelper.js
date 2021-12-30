@@ -3,6 +3,7 @@ const { getRandomGif } = require("./giphyHelper");
 
 const getRoomData = (rooms, room) => {
   return {
+    type: "roomData",
     ...rooms[room],
     clients: rooms[room].clients.map(({ id, name, points }) => ({
       id,

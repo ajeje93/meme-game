@@ -50,12 +50,38 @@ app.get("/events", async (req, res) => {
     `data: ${JSON.stringify(getRoomData(rooms, req.query.roomId))}\n\n`
   );
 
+  // Send ping to client every 5 seconds to keep connection alive
+  const intervalId = setInterval(() => {
+    try {
+      res.write(
+        `data: ${JSON.stringify({
+          type: "ping",
+          timestamp: new Date().toISOString(),
+        })}\n\n`
+      );
+    } catch (e) {
+      console.log(
+        "Error sending ping to client: ",
+        req.query.clientId,
+        "in room: ",
+        req.query.roomId
+      );
+      console.error(e);
+    }
+  }, 5000);
+
   req.on("close", () => {
     console.log(`${req.query.clientId} Connection closed`);
+
+    // Stop sending pings to client
+    clearInterval(intervalId);
+
+    // Remove client from room
     rooms[req.query.roomId].clients = rooms[req.query.roomId].clients.filter(
       (client) => client.id !== req.query.clientId
     );
 
+    // If room is empty, delete it
     if (rooms[req.query.roomId].clients.length === 0) {
       rooms = Object.fromEntries(
         Object.entries(rooms).filter(([key, value]) => key !== req.query.roomId)
