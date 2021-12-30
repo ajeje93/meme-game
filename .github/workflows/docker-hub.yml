@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Publish Docker images
+name: Publish Docker images to Docker Hub
 
 on:
   push:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
     environment: main
     steps:
