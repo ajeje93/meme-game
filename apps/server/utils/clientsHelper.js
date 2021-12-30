@@ -6,8 +6,7 @@ const updateAllClients = (rooms, room) => {
     try {
       client.res.write(`data: ${JSON.stringify(getRoomData(rooms, room))}\n\n`);
     } catch (e) {
-      console.log("Error updating client: ", client?.id, "in room: ", room);
-      console.error(e);
+      console.error(`Error updating client ${client?.id} in room ${room}: `, e);
     }
   });
 };

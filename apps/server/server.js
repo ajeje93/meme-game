@@ -19,75 +19,92 @@ app.listen(PORT, () => {
 });
 
 app.get("/events", async (req, res) => {
-  res.writeHead(200, {
-    "Content-Type": "text/event-stream",
-    Connection: "keep-alive",
-    "Cache-Control": "no-cache",
-  });
-
-  rooms[req.query.roomId] = rooms[req.query.roomId] || (await createNewRoom());
-
-  const currentClientIdx = rooms[req.query.roomId].clients.findIndex(
-    (client) => client.id === req.query.clientId
-  );
-
-  // If client is not in room, add them
-  if (currentClientIdx === -1) {
-    rooms[req.query.roomId].clients.push({
-      ...createNewClient(req.query.clientId, req.query.clientName),
-      res,
+  try {
+    res.writeHead(200, {
+      "Content-Type": "text/event-stream",
+      Connection: "keep-alive",
+      "Cache-Control": "no-cache",
     });
-    updateAllClients(rooms, req.query.roomId);
-  } else {
-    // If client is in room, update their res
-    rooms[req.query.roomId].clients[currentClientIdx] = {
-      ...rooms[req.query.roomId].clients[currentClientIdx],
-      res,
-    };
-  }
 
-  res.write(
-    `data: ${JSON.stringify(getRoomData(rooms, req.query.roomId))}\n\n`
-  );
+    rooms[req.query.roomId] =
+      rooms[req.query.roomId] || (await createNewRoom());
 
-  // Send ping to client every 5 seconds to keep connection alive
-  const intervalId = setInterval(() => {
-    try {
-      res.write(
-        `data: ${JSON.stringify({
-          type: "ping",
-          timestamp: new Date().toISOString(),
-        })}\n\n`
-      );
-    } catch (e) {
-      console.log(
-        "Error sending ping to client: ",
-        req.query.clientId,
-        "in room: ",
-        req.query.roomId
-      );
-      console.error(e);
-    }
-  }, 5000);
-
-  req.on("close", () => {
-    console.log(`${req.query.clientId} Connection closed`);
-
-    // Stop sending pings to client
-    clearInterval(intervalId);
-
-    // Remove client from room
-    rooms[req.query.roomId].clients = rooms[req.query.roomId].clients.filter(
-      (client) => client.id !== req.query.clientId
+    const currentClientIdx = rooms[req.query.roomId].clients.findIndex(
+      (client) => client.id === req.query.clientId
     );
 
-    // If room is empty, delete it
-    if (rooms[req.query.roomId].clients.length === 0) {
-      rooms = Object.fromEntries(
-        Object.entries(rooms).filter(([key, value]) => key !== req.query.roomId)
+    // If client is not in room, add them
+    if (currentClientIdx === -1) {
+      rooms[req.query.roomId].clients.push({
+        ...createNewClient(req.query.clientId, req.query.clientName),
+        res,
+      });
+      updateAllClients(rooms, req.query.roomId);
+    } else {
+      // If client is in room, update their res
+      rooms[req.query.roomId].clients[currentClientIdx] = {
+        ...rooms[req.query.roomId].clients[currentClientIdx],
+        res,
+      };
+    }
+
+    res.write(
+      `data: ${JSON.stringify(getRoomData(rooms, req.query.roomId))}\n\n`
+    );
+
+    // Send ping to client every 5 seconds to keep connection alive
+    const intervalId = setInterval(() => {
+      try {
+        res.write(
+          `data: ${JSON.stringify({
+            type: "ping",
+            timestamp: new Date().toISOString(),
+          })}\n\n`
+        );
+      } catch (e) {
+        console.error(
+          `Error sending ping to client: ${req.query.clientId} in room: ${req.query.roomId}: `,
+          e
+        );
+      }
+    }, 5000);
+
+    req.on("close", () => {
+      console.log(`${req.query.clientId} Connection closed`);
+
+      // Stop sending pings to client
+      clearInterval(intervalId);
+
+      // Remove client from room
+      rooms[req.query.roomId].clients = rooms[req.query.roomId].clients.filter(
+        (client) => client.id !== req.query.clientId
+      );
+
+      // If room is empty, delete it
+      if (rooms[req.query.roomId].clients.length === 0) {
+        rooms = Object.fromEntries(
+          Object.entries(rooms).filter(
+            ([key, value]) => key !== req.query.roomId
+          )
+        );
+      }
+    });
+  } catch (e) {
+    console.error(
+      `Error on event stream for client ${req.query.clientId} in room ${req.query.roomId}: `,
+      e
+    );
+
+    // try to close the connection
+    try {
+      res.end();
+    } catch (e) {
+      console.error(
+        `Error ending event stream for client ${req.query.clientId} in room ${req.query.roomId}: `,
+        e
       );
     }
-  });
+  }
 });
 
 app.post("/room", async (req, res) => {
