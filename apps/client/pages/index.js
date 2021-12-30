@@ -8,7 +8,19 @@ import {
   NewRoomForm,
 } from "../components";
 import { useApi } from "../utils/apiHelper";
-import "../styles/Home.module.css";
+import styled from "styled-components";
+import { Container, GifContainer } from "../components/layouts";
+
+const GifAndCaptionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TablesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`;
 
 const Home = () => {
   // Hooks
@@ -96,23 +108,32 @@ const Home = () => {
 
   return roomId ? (
     user ? (
-      <div className="container">
-        <NewCaptionForm {...{ caption, onClickNewCaption, onCaptionChange }} />
-        {roomData?.currentGif ? (
-          <div className="current-gif-container">
-            <img
-              src={roomData?.currentGif}
-              alt="meme gif"
-              className="current-gif"
+      <>
+        <Container>
+          <GifAndCaptionContainer>
+            {roomData?.currentGif ? (
+              <GifContainer>
+                <img
+                  style={{ maxHeight: 300 }}
+                  src={roomData?.currentGif}
+                  alt="meme gif"
+                />
+              </GifContainer>
+            ) : null}
+            <NewCaptionForm
+              {...{ caption, onClickNewCaption, onCaptionChange }}
             />
-          </div>
-        ) : null}
-        <ClientsTable clients={roomData.clients} />
-        <CaptionsTable
-          currentCaptions={roomData.currentCaptions}
-          onClickVote={onClickVote}
-        />
-      </div>
+          </GifAndCaptionContainer>
+          <TablesContainer>
+            <CaptionsTable
+              currentCaptions={roomData.currentCaptions}
+              onClickVote={onClickVote}
+            />
+
+            <ClientsTable clients={roomData.clients} />
+          </TablesContainer>
+        </Container>
+      </>
     ) : (
       <NewClientForm {...{ name, onClickNewClient, onClientNameChange }} />
     )

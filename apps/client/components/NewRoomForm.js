@@ -1,8 +1,22 @@
+import { Typography, Button } from "@mui/material";
+import { Container, FormContainer } from "./../components/layouts";
+
 const NewRoomForm = ({ onClickNewRoom }) => {
   return (
-    <form onSubmit={onClickNewRoom}>
-      No room <button type="submit">Create new room</button>
-    </form>
+    <Container>
+      <form onSubmit={onClickNewRoom}>
+        <FormContainer>
+          <div>
+            <Typography>No room</Typography>
+          </div>
+          <div>
+            <Button variant="contained" type="submit">
+              Create new room
+            </Button>
+          </div>
+        </FormContainer>
+      </form>
+    </Container>
   );
 };
 
