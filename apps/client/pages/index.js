@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
@@ -8,19 +9,19 @@ import {
   NewRoomForm,
 } from "../components";
 import { useApi } from "../utils/apiHelper";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 import { Container, GifContainer } from "../components/layouts";
 
-const GifAndCaptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const GifAndCaptionContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+});
 
-const TablesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-`;
+const TablesContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: 50,
+});
 
 const Home = () => {
   // Hooks

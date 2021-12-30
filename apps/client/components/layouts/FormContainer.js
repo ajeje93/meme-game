@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const StyleFormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  jusitfy-content: center;
-  gap: 20;
-`;
+const StyleFormContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 20,
+});
 
 const FormContainer = ({ children }) => {
   return <StyleFormContainer>{children}</StyleFormContainer>;

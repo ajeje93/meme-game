@@ -1,14 +1,14 @@
 import { TextField, Button } from "@mui/material";
 import { FormContainer } from "./layouts";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const CaptionContainer = styled.div`
-  margin-top: 30px;
-`;
+const CaptionContainer = styled("div")({
+  marginTop: 30,
+});
 
-const InputContainer = styled.div`
-  margin-bottom: 10px;
-`;
+const InputContainer = styled("div")({
+  marginBottom: 10,
+});
 
 const NewCaptionForm = ({ caption, onClickNewCaption, onCaptionChange }) => {
   return (

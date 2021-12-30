@@ -1,10 +1,10 @@
 import { TextField, Button } from "@mui/material";
 import { Container, FormContainer } from "./../components/layouts";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const InputContainer = styled.div`
-  margin-bottom: 10px;
-`;
+const InputContainer = styled("div")({
+  marginBottom: 10,
+});
 
 const NewClientForm = ({ name, onClickNewClient, onClientNameChange }) => {
   return (

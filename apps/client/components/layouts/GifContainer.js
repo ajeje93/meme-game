@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-const StyledGifContainer = styled.div`
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-`;
+const StyledGifContainer = styled("div")({
+  padding: "0 16px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 16,
+});
 
 const GifContainer = ({ children }) => {
   return <StyledGifContainer>{children}</StyledGifContainer>;
