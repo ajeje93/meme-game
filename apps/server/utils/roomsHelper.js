@@ -1,7 +1,7 @@
-const { nanoid } = require("nanoid");
-const { getRandomGif } = require("./giphyHelper");
+import { nanoid } from "nanoid";
+import { getRandomGif } from "./giphyHelper.js";
 
-const getRoomData = (rooms, room) => {
+export const getRoomData = (rooms, room) => {
   return {
     type: "roomData",
     ...rooms[room],
@@ -13,7 +13,7 @@ const getRoomData = (rooms, room) => {
   };
 };
 
-const createNewRoom = async () => {
+export const createNewRoom = async () => {
   return {
     id: nanoid(),
     clients: [],
@@ -24,9 +24,4 @@ const createNewRoom = async () => {
     lastCaptions: [],
     lastClientVotes: [],
   };
-};
-
-module.exports = {
-  getRoomData,
-  createNewRoom,
 };

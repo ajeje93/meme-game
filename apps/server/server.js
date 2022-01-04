@@ -1,11 +1,16 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const { nanoid } = require("nanoid");
-const { createNewClient, updateAllClients } = require("./utils/clientsHelper");
-const { getRoomData, createNewRoom } = require("./utils/roomsHelper");
-require("dotenv").config({ path: "./.env.local" });
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import { nanoid } from "nanoid";
+import {
+  createNewClient,
+  updateAllClients,
+  getRoomData,
+  createNewRoom,
+} from "./utils/index.js";
+import dotenv from "dotenv";
 
+dotenv.config({ path: "./.env.local" });
 const app = express();
 const PORT = process.env.PORT || 3001;
 let rooms = {};

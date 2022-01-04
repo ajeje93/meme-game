@@ -1,6 +1,6 @@
-const axios = require("axios").default;
+import { default as axios } from "axios";
 
-const getRandomGif = async () => {
+export const getRandomGif = async () => {
   const giphy = {
     baseURL: "https://api.giphy.com/v1/gifs/",
     apiKey: process.env.GIPHY_API_KEY,
@@ -14,8 +14,4 @@ const getRandomGif = async () => {
     (await axios.get(giphyURL)).data?.data?.images?.original?.url ||
     (await getRandomGif())
   );
-};
-
-module.exports = {
-  getRandomGif,
 };
