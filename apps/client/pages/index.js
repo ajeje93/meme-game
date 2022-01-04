@@ -12,16 +12,25 @@ import { useApi } from "../utils/apiHelper";
 import { styled } from "@mui/material/styles";
 import { Container, GifContainer } from "../components/layouts";
 
-const GifAndCaptionContainer = styled("div")({
+const GifAndCaptionContainer = styled("div")(({ theme }) => ({
+  maxWidth: "50vw",
   display: "flex",
   flexDirection: "column",
-});
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "100vw",
+  },
+}));
 
-const TablesContainer = styled("div")({
+const TablesContainer = styled("div")(({ theme }) => ({
+  maxWidth: "50vw",
   display: "flex",
   flexDirection: "column",
   gap: 50,
-});
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "100vw",
+    padding: "0 16px",
+  },
+}));
 
 const Home = () => {
   // Hooks
@@ -119,7 +128,7 @@ const Home = () => {
             {roomData?.currentGif ? (
               <GifContainer>
                 <img
-                  style={{ maxHeight: 300 }}
+                  style={{ maxHeight: 300, maxWidth: "100%" }}
                   src={roomData.currentGif}
                   alt="meme gif"
                 />
