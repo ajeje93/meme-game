@@ -116,10 +116,10 @@ app.post("/room", async (req, res) => {
   try {
     const newRoom = await createNewRoom();
     rooms[newRoom.id] = newRoom;
-    res.json(rooms[newRoom.id]);
+    return res.json(rooms[newRoom.id]);
   } catch (e) {
     console.error(e);
-    res.status(400).json({ message: e.message });
+    return res.status(400).json({ message: e.message });
   }
 });
 
@@ -133,7 +133,7 @@ app.post("/client", (req, res) => {
     return updateAllClients(rooms, req.body.roomId);
   } catch (e) {
     console.error(e);
-    res.status(400).json({ message: e.message });
+    return res.status(400).json({ message: e.message });
   }
 });
 
@@ -153,7 +153,7 @@ app.post("/caption", (req, res) => {
     return updateAllClients(rooms, req.body.roomId);
   } catch (e) {
     console.error(e);
-    res.status(400).json({ message: e.message });
+    return res.status(400).json({ message: e.message });
   }
 });
 
@@ -216,6 +216,6 @@ app.post("/vote", async (req, res) => {
     return updateAllClients(rooms, req.body.roomId);
   } catch (e) {
     console.error(e);
-    res.status(400).json({ message: e.message });
+    return res.status(400).json({ message: e.message });
   }
 });
