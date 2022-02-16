@@ -10,7 +10,7 @@ jobs:
   build:
     name: Deploy server docker image to Heroku
     runs-on: ubuntu-latest
-    environment: main
+    environment: ${{ github.ref_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
