@@ -16,7 +16,7 @@ jobs:
   push_to_registry:
     name: Push Docker images to Docker Hub
     runs-on: ubuntu-latest
-    environment: $GITHUB_REF_NAME
+    environment: ${{ github.ref_name }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
